@@ -12,4 +12,4 @@ with open("memtest.efi.mui", "rb") as f:
             print(signed_data.signer_info.countersigner.signing_time)
             times += [signed_data.signer_info.countersigner.signing_time]
 
-assert times == ["2016-08-06T11:59:52.180000"]
+assert times == ["2016-08-06T11:59:52.180000+00:00"]
