@@ -1,0 +1,26 @@
+name: test
+
+on: [push]
+
+jobs:
+  run:
+    strategy:
+      matrix:
+        node-version: [0.6.0, 0.6.1, 0.7.0, 0.7.1]
+        platform:
+        - os: ubuntu-latest
+        - os: macos-latest
+        - os: windows-latest
+      fail-fast: false
+
+    runs-on: ${{ matrix.platform.os }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install signify ${{ matrix.node-version }}
+        run: pip install signify==${{ matrix.node-version }}
+
+      - name: Run test
+        run: python test.py
