@@ -6,7 +6,12 @@ jobs:
   run:
     strategy:
       matrix:
-        node-version: [0.6.0, 0.6.1, 0.7.0, 0.7.1]
+        version: [
+          {signify: "0.6.0", pyasn1: "0.5.1"}, 
+          {signify: "0.6.1", pyasn1: "0.5.1"}, 
+          {signify: "0.7.0", pyasn1: "0.6.1"},
+          {signify: "0.7.1", pyasn1: "0.6.1"},
+        ]
         platform:
         - os: ubuntu-latest
         - os: macos-latest
@@ -19,8 +24,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install signify ${{ matrix.node-version }}
-        run: pip install signify==${{ matrix.node-version }}
+      - name: Install pyasn1 ${{ matrix.version.pyasn1 }}
+        run: pip install pyasn1==${{ matrix.version.pyasn1 }}
+
+      - name: Install signify ${{ matrix.version.signify }}
+        run: pip install signify==${{ matrix.version.signify }}
 
       - name: Run test
         run: python test.py
